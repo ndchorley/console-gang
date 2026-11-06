@@ -6,8 +6,7 @@ use console_gang::server::Server;
 #[test]
 fn an_invalid_add_player_request_cant_be_processed() {
     let port = 7000;
-    let server = Server { port };
-    let _ = thread::spawn(move || { server.start(); });
+    server_is_started_on(port);
 
     let mut stream = TcpStream::connect(format!("localhost:{}", port)).unwrap();
     let _ = stream.write(&[1]);
@@ -15,4 +14,9 @@ fn an_invalid_add_player_request_cant_be_processed() {
     let _ = stream.read(&mut buffer);
 
     assert_that!(buffer).is_equal_to([255]);
+}
+
+fn server_is_started_on(port: u16) {
+    let server = Server { port };
+    let _ = thread::spawn(move || { server.start(); });
 }
