@@ -1,3 +1,5 @@
+use console_gang::server::Server;
+
 fn main() {
-    println!("Hello gang!");
+    Server { port: 7000 }.start();
 }
