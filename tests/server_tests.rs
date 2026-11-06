@@ -9,7 +9,9 @@ fn an_invalid_add_player_request_cant_be_processed() {
     server_is_started_on(port);
 
     let mut stream = TcpStream::connect(format!("localhost:{}", port)).unwrap();
-    let _ = stream.write(&[1]);
+    let bytes_to_send = &[1];
+    let _ = stream.write(bytes_to_send);
+
     let mut received_bytes = [0];
     let _ = stream.read(&mut received_bytes);
 
