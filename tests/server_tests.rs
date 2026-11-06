@@ -10,10 +10,10 @@ fn an_invalid_add_player_request_cant_be_processed() {
 
     let mut stream = TcpStream::connect(format!("localhost:{}", port)).unwrap();
     let _ = stream.write(&[1]);
-    let mut buffer = [0];
-    let _ = stream.read(&mut buffer);
+    let mut received_bytes = [0];
+    let _ = stream.read(&mut received_bytes);
 
-    assert_that!(buffer).is_equal_to([255]);
+    assert_that!(received_bytes).is_equal_to([255]);
 }
 
 fn server_is_started_on(port: u16) {
