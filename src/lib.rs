@@ -1,3 +1,5 @@
+pub mod server;
+
 pub struct Game;
 
 impl Game {
