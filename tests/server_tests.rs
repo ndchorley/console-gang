@@ -8,7 +8,7 @@ fn an_invalid_add_player_request_cant_be_processed() {
     let port = 7000;
     server_is_started_on(port);
 
-    let mut stream = TcpStream::connect(format!("localhost:{}", port)).unwrap();
+    let mut stream = TcpStream::connect(localhost_on(port)).unwrap();
     let bytes_to_send = &[1];
     let _ = stream.write(bytes_to_send);
 
@@ -21,4 +21,8 @@ fn an_invalid_add_player_request_cant_be_processed() {
 fn server_is_started_on(port: u16) {
     let server = Server { port };
     let _ = thread::spawn(move || { server.start(); });
+}
+
+fn localhost_on(port: u16) -> String {
+    format!("localhost:{}", port)
 }
